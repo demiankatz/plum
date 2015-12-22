@@ -5,6 +5,10 @@ class CurationConcernsShowPresenter < CurationConcerns::WorkShowPresenter
     StateBadge.new(type, state).render
   end
 
+  def flaggable?
+    StateBadge.new(type, state).flaggable?
+  end
+
   def in_collections
     ActiveFedora::SolrService.query("active_fedora_model_ssi:Collection AND member_ids_ssim:#{id}")
       .map { |c| CurationConcerns::CollectionPresenter.new(SolrDocument.new(c), current_ability) }
